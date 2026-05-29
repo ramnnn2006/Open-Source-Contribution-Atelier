@@ -5,6 +5,7 @@ import { ChallengePage } from "../pages/ChallengePage";
 import { CommunityPage } from "../pages/CommunityPage";
 import { DashboardPage } from "../pages/DashboardPage";
 import { LandingPage } from "../pages/LandingPage";
+import { LeaderboardPage } from "../pages/LeaderboardPage";
 import { LessonPage } from "../pages/LessonPage";
 import { NotFoundPage } from "../pages/NotFoundPage";
 import { useAuth } from "../features/auth/AuthContext";
@@ -69,6 +70,7 @@ export function AppRouter() {
         <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
         <Route path="/lessons/:slug" element={<ProtectedRoute><LessonPage /></ProtectedRoute>} />
         <Route path="/challenges" element={<ProtectedRoute><ChallengePage /></ProtectedRoute>} />
+        <Route path="/leaderboard" element={<ProtectedRoute><LeaderboardPage /></ProtectedRoute>} />
         <Route path="/community" element={<ProtectedRoute><CommunityPage /></ProtectedRoute>} />
       </Route>
 
