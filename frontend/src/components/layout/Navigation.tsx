@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Bell, BookOpen, BriefcaseBusiness, LayoutGrid, Search, Shield, TerminalSquare, Trophy, X, Sun, Moon } from "lucide-react";
+import { Bell, BookOpen, BriefcaseBusiness, LayoutGrid, Medal, Search, Shield, TerminalSquare, Trophy, X, Sun, Moon } from "lucide-react";
 import { Link, NavLink } from "react-router-dom";
 import { fetchApi } from "../../lib/api";
 import { useTheme } from "../../hooks/useTheme";
@@ -8,6 +8,7 @@ const navItems = [
   { to: "/dashboard", label: "Dashboard", icon: LayoutGrid },
   { to: "/lessons/intro", label: "Lessons", icon: BookOpen },
   { to: "/challenges", label: "Challenges", icon: Trophy },
+  { to: "/leaderboard", label: "Leaderboard", icon: Medal },
   { to: "/community", label: "Community", icon: BriefcaseBusiness },
 ];
 

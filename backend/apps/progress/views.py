@@ -1,3 +1,5 @@
+from django.contrib.auth.models import User
+from django.db.models import Sum
 from rest_framework import permissions, status
 from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
@@ -5,13 +7,34 @@ from rest_framework.views import APIView
 
 from apps.content.models import Lesson
 from .models import Badge, HelpRequest, LessonProgress
-from .serializers import BadgeSerializer, HelpRequestSerializer, LessonProgressSerializer
+from .serializers import (
+    BadgeSerializer,
+    HelpRequestSerializer,
+    LeaderboardEntrySerializer,
+    LessonProgressSerializer,
+)
 
 
 class BadgeListView(ListAPIView):
     queryset = Badge.objects.all()
     serializer_class = BadgeSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+
+class LeaderboardView(APIView):
+    """Top 100 contributors ranked by total accumulated lesson score."""
+
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+    def get(self, request):
+        users = (
+            User.objects
+            .annotate(total_score=Sum("lessonprogress__score"))
+            .filter(total_score__gt=0)
+            .order_by("-total_score", "username")[:100]
+        )
+        serializer = LeaderboardEntrySerializer(users, many=True)
+        return Response(serializer.data)
 
 
 class MyProgressView(APIView):
